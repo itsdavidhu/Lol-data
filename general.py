@@ -2,6 +2,7 @@ import requests
 import os
 from dotenv import load_dotenv
 import csv
+import time
 
 load_dotenv()
 riot_api = os.environ["RIOT_API"]
@@ -23,6 +24,9 @@ for rank in ranks:
             while num_accounts < 100:
                 curr_rank = "https://na1.api.riotgames.com/lol/league/v4/entries/RANKED_SOLO_5x5/{0}/{1}?page={2}&api_key={3}".format(rank, division, str(page), riot_api)
                 response = requests.get(curr_rank)
+                if response.status_code == 429:
+                    time.sleep(10)
+                    response = requests.get(curr_rank)
                 accounts = response.json()
                 for i in range(len(accounts)):
                     curr_account = accounts[i]
