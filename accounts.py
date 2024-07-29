@@ -14,7 +14,7 @@ for rank in ranks:
     for division in divisions:
         num_accounts = 0
         page = 1
-        file_path = "data/{0}_{1}".format(rank, division)
+        file_path = "accounts/{0}_{1}.csv".format(rank, division)
         with open(file_path, "w", newline="") as file:
             writer = csv.writer(file)
             writer.writerow(["leagueId", "queueType", 
@@ -43,7 +43,7 @@ for rank in ranks:
                 page += 1
 
 for rank in high_elo:
-    file_path = "data/{0}".format(rank)
+    file_path = "accounts/{0}.csv".format(rank)
     with open(file_path, "w", newline="") as file:
         writer = csv.writer(file)
         writer.writerow(["summonerId", "leaguePoints",
