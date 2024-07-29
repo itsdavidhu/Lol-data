@@ -26,6 +26,7 @@ for rank in ranks:
                 curr_rank = "https://na1.api.riotgames.com/lol/league/v4/entries/RANKED_SOLO_5x5/{0}/{1}?page={2}&api_key={3}".format(rank, division, str(page), riot_api)
                 response = requests.get(curr_rank)
                 while response.status_code == 429:
+                    print(response.status_code)
                     time.sleep(10)
                     response = requests.get(curr_rank)
                 accounts = response.json()
