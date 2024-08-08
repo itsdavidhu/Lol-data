@@ -76,6 +76,7 @@ class LolData:
                                         curr_account["rank"], curr_account["wins"], curr_account["losses"], 
                                         curr_account["veteran"], curr_account["inactive"], 
                                         curr_account["freshBlood"], curr_account["hotStreak"]])
+                    
     def load_general_matches(self):
         for rank in self.ranks:
             for division in self.divisions:
@@ -146,25 +147,76 @@ class LolData:
 
     def general_stats(self):
         for rank in self.ranks:
-            if rank.endswith("leagues"):
-                file_path = "accounts/{0}.csv".format(rank)
+            for division in self.divisions:
+                file_path = "accounts/{0}_{1}.csv".format(rank, division)
                 curr_rank = pd.read_csv(file_path)
                 curr_rank['avg_win'] = curr_rank['wins'] / (curr_rank['losses'] + curr_rank['wins'])
-                self.winrates[rank] = {}
+                rank_division = "{0}_{1}".format(rank, division)
+                self.winrates[rank_division] = {}
                 info = curr_rank['avg_win'].describe()
                 for key in info.keys():
-                    self.winrates[rank][key] = info[key]
-            else:
-                for division in self.divisions:
-                    file_path = "accounts/{0}_{1}.csv".format(rank, division)
-                    curr_rank = pd.read_csv(file_path)
-                    curr_rank['avg_win'] = curr_rank['wins'] / (curr_rank['losses'] + curr_rank['wins'])
-                    rank_division = "{0}_{1}".format(rank, division)
-                    self.winrates[rank_division] = {}
-                    info = curr_rank['avg_win'].describe()
-                    for key in info.keys():
-                        self.winrates[rank_division][key] = info[key]
+                    self.winrates[rank_division][key] = info[key]
+        for rank in self.high_elo:
+            file_path = "accounts/{0}.csv".format(rank)
+            curr_rank = pd.read_csv(file_path)
+            curr_rank['avg_win'] = curr_rank['wins'] / (curr_rank['losses'] + curr_rank['wins'])
+            self.winrates[rank] = {}
+            info = curr_rank['avg_win'].describe()
+            for key in info.keys():
+                self.winrates[rank][key] = info[key]
         winrates_json = json.dumps(self.winrates, indent=4)
         with open("winrates.json", "w") as file:
             file.write(winrates_json)
     
+    def load_general_match_data(self):
+        for rank in self.ranks:
+            for division in self.divisions:
+                path = "match_data/{0}/{1}".format(rank, division)
+                if not os.path.exists(path):
+                    os.makedirs(path)
+                file_path = "summoner_matches/{0}/{1}".format(rank, division)
+                for account in os.listdir(file_path):
+                    account_path = "{0}/{1}".format(file_path, account)
+                    with open(account_path, "r") as file:
+                        account_matches = json.load(file)
+                        match_path = "{0}/{1}".format(path, account_matches['puuid'])
+                        if not os.path.exists(match_path):
+                            os.makedirs(match_path)
+                        for match in account_matches['matches']:
+                            curr_match = "https://americas.api.riotgames.com/lol/match/v5/matches/{0}?api_key={1}".format(match, self._riot_api)
+                            response = requests.get(curr_match)
+                            while response.status_code == 429:
+                                print(response.status_code)
+                                time.sleep(10)
+                                response = requests.get(curr_match)
+                            match_data = response.json()
+                            json_path = "{0}/{1}.json".format(match_path, match)
+                            json_file = json.dumps(match_data, indent=4)
+                            with open(json_path, "w") as file:
+                                file.write(json_file)       
+    
+    def load_high_elo_match_data(self):
+        for rank in self.high_elo:
+            path = "match_data/{0}".format(rank)
+            if not os.path.exists(path):
+                os.makedirs(path)
+            file_path = "summoner_matches/{0}".format(rank)
+            for account in os.listdir(file_path):
+                account_path = "{0}/{1}".format(file_path, account)
+                with open(account_path, "r") as file:
+                    account_matches = json.load(file)
+                    match_path = "{0}/{1}".format(path, account_matches['puuid'])
+                    if not os.path.exists(match_path):
+                        os.makedirs(match_path)
+                    for match in account_matches['matches']:
+                        curr_match = "https://americas.api.riotgames.com/lol/match/v5/matches/{0}?api_key={1}".format(match, self._riot_api)
+                        response = requests.get(curr_match)
+                        while response.status_code == 429:
+                            print(response.status_code)
+                            time.sleep(10)
+                            response = requests.get(curr_match)
+                        match_data = response.json()
+                        json_path = "{0}/{1}.json".format(match_path, match)
+                        json_file = json.dumps(match_data, indent=4)
+                        with open(json_path, "w") as file:
+                            file.write(json_file)       
