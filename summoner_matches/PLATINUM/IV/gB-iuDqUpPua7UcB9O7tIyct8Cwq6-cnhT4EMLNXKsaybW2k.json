@@ -3,13 +3,14 @@
     "accountId": "pqRcDZ9_f4Q4xJCbUTj7TDqyOUiUL9UgLRSfFinCEf81F3ayGPWfpjQw",
     "puuid": "-9XyOo2AG5gr6i-6UZo3FRalrXKa47aRoNa_Lp-KjduueSPg7wPdXAAQOl6AHjr4oDIc6Sa0Rai1CA",
     "profileIconId": 6246,
-    "revisionDate": 1721870224000,
+    "revisionDate": 1722486217000,
     "summonerLevel": 372,
     "rank": "IV",
     "tier": "PLATINUM",
     "wins": 116,
-    "losses": 97,
+    "losses": 98,
     "matches": [
+        "NA1_5070833694",
         "NA1_5059955567",
         "NA1_5054432449",
         "NA1_5054397620",
@@ -108,7 +109,6 @@
         "NA1_5030220231",
         "NA1_5030198695",
         "NA1_5030175399",
-        "NA1_5030098187",
-        "NA1_5030066842"
+        "NA1_5030098187"
     ]
 }

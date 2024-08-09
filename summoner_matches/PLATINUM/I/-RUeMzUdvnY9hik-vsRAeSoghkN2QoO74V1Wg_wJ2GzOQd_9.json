@@ -3,13 +3,16 @@
     "accountId": "gMo-Evu-BAZPKdviwOMEPd8k5GeI0ETW5I83yIWXLE2BrBmqrRHFO2vI",
     "puuid": "ngjMy-RJhlK_3Dm8agW0Kn11iAA5puLIb1RePt4oJsAwxaB3OqXO_LnsKjyv02KI-uHiGdtaDNXYFQ",
     "profileIconId": 4804,
-    "revisionDate": 1722253348518,
+    "revisionDate": 1722604987000,
     "summonerLevel": 255,
     "rank": "I",
     "tier": "PLATINUM",
-    "wins": 103,
-    "losses": 106,
+    "wins": 105,
+    "losses": 107,
     "matches": [
+        "NA1_5072431278",
+        "NA1_5072422154",
+        "NA1_5072409133",
         "NA1_5067318114",
         "NA1_5049320496",
         "NA1_5049292317",
@@ -106,9 +109,6 @@
         "NA1_5014594976",
         "NA1_5014562177",
         "NA1_5014533844",
-        "NA1_5014206137",
-        "NA1_5014181494",
-        "NA1_5011280047",
-        "NA1_5011266219"
+        "NA1_5014206137"
     ]
 }

@@ -3,13 +3,14 @@
     "accountId": "waO0nGU6dgIgwm15VYhLvLjF5-i6haldH8ohOXDwcXMwtkh9KrHZCsci",
     "puuid": "jfz2XPOCF3N-rroHweriw94IG1LLTqIseWiCVnTKDG8lvvampgCPcBMn0DWZjCm4O_CyYQjQjajSIw",
     "profileIconId": 743,
-    "revisionDate": 1722107917000,
+    "revisionDate": 1722981454000,
     "summonerLevel": 236,
     "rank": "II",
     "tier": "EMERALD",
     "wins": 158,
-    "losses": 164,
+    "losses": 165,
     "matches": [
+        "NA1_5077729068",
         "NA1_5037821210",
         "NA1_5037806865",
         "NA1_5037508784",
@@ -108,7 +109,6 @@
         "NA1_5015017141",
         "NA1_5014977605",
         "NA1_5014959225",
-        "NA1_5014943059",
-        "NA1_5014921250"
+        "NA1_5014943059"
     ]
 }

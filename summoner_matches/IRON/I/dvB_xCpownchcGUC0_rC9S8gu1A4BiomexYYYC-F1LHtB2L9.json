@@ -3,13 +3,17 @@
     "accountId": "SwiMUwL6fFJOfkFuvXRwlIODsmz_nLdUdaDVjhkrKskw9dUpMv4SsYZe",
     "puuid": "x625L-c7Ft6Sxgx9m3Lx9OGu7g7WCQjt40KzDgwXYtTZeNF4yJSHFmWZZwhlC7oYJ_FCe4rlFzYn8g",
     "profileIconId": 6273,
-    "revisionDate": 1722034197000,
-    "summonerLevel": 453,
+    "revisionDate": 1722441472000,
+    "summonerLevel": 454,
     "rank": "I",
     "tier": "IRON",
     "wins": 116,
     "losses": 127,
     "matches": [
+        "NA1_5069992447",
+        "NA1_5069055666",
+        "NA1_5069040234",
+        "NA1_5069021984",
         "NA1_5063165578",
         "NA1_5063121476",
         "NA1_5063061693",
@@ -105,10 +109,6 @@
         "NA1_5040569294",
         "NA1_5040544570",
         "NA1_5040526129",
-        "NA1_5040480183",
-        "NA1_5040399853",
-        "NA1_5040381338",
-        "NA1_5040369347",
-        "NA1_5040342386"
+        "NA1_5040480183"
     ]
 }

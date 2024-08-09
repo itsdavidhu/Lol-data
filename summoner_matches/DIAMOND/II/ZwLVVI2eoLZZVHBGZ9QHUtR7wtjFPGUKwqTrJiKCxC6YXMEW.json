@@ -3,13 +3,14 @@
     "accountId": "l2r4F6hlgnaTUdZyaVDmVmFI_Uz6qMlB_i4hTQ2796HzSoaW93_cue0K",
     "puuid": "0PP37j6zZkjIiHwj7wblRni5Rmf04VbzyewCPhPxGJenKU6Si2XcKa-RCj4dj7kpfeV7JKEBrPlnbA",
     "profileIconId": 6426,
-    "revisionDate": 1721959356000,
+    "revisionDate": 1723167217000,
     "summonerLevel": 531,
     "rank": "II",
     "tier": "DIAMOND",
-    "wins": 135,
+    "wins": 136,
     "losses": 143,
     "matches": [
+        "NA1_5076052866",
         "NA1_5061759015",
         "NA1_5061551993",
         "NA1_5061499611",
@@ -108,7 +109,6 @@
         "NA1_5030973768",
         "NA1_5030883044",
         "NA1_5030675876",
-        "NA1_5030651048",
-        "NA1_5030448258"
+        "NA1_5030651048"
     ]
 }
