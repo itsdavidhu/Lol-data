@@ -21,9 +21,11 @@ class LolData:
                 path = "accounts"
                 if not os.path.exists(path):
                     os.makedirs(path)
+                print("Generating accounts for {0} {1}".format(rank, division))
                 num_accounts = 0
                 page = 1
                 file_path = "accounts/{0}_{1}.csv".format(rank, division)
+                all_accounts = set()
                 with open(file_path, "w", newline="") as file:
                     writer = csv.writer(file)
                     writer.writerow(["leagueId", "queueType", 
@@ -35,12 +37,13 @@ class LolData:
                         curr_rank = "https://na1.api.riotgames.com/lol/league/v4/entries/RANKED_SOLO_5x5/{0}/{1}?page={2}&api_key={3}".format(rank, division, str(page), self._riot_api)
                         response = requests.get(curr_rank)
                         while response.status_code == 429:
-                            print(response.status_code)
                             time.sleep(10)
                             response = requests.get(curr_rank)
                         accounts = response.json()
                         for i in range(len(accounts)):
                             curr_account = accounts[i]
+                            if curr_account["summonerId"] in all_accounts:
+                                continue
                             if curr_account["wins"] + curr_account["losses"] > 200:
                                 writer.writerow([curr_account["leagueId"], curr_account["queueType"], 
                                     curr_account["tier"], curr_account["rank"], curr_account["summonerId"], 
@@ -48,6 +51,7 @@ class LolData:
                                     curr_account["veteran"], curr_account["inactive"], curr_account["freshBlood"], 
                                     curr_account["hotStreak"]])
                                 num_accounts += 1
+                                all_accounts.add(curr_account["summonerId"])
                                 if num_accounts >= 100:
                                     break
                         page += 1
@@ -57,6 +61,7 @@ class LolData:
             path = "accounts"
             if not os.path.exists(path):
                 os.makedirs(path)
+            print("Generating accounts for {0}".format(rank))
             file_path = "accounts/{0}.csv".format(rank)
             with open(file_path, "w", newline="") as file:
                 writer = csv.writer(file)
@@ -83,6 +88,7 @@ class LolData:
                 path = "summoner_matches/{0}/{1}".format(rank, division)
                 if not os.path.exists(path):
                     os.makedirs(path)
+                print("Generating matches for {0} {1}".format(rank, division))
                 file_path = "accounts/{0}_{1}.csv".format(rank, division)
                 accounts = pd.read_csv(file_path)
                 for index, row in accounts.iterrows():
@@ -90,7 +96,6 @@ class LolData:
                     summoner_api = "https://na1.api.riotgames.com/lol/summoner/v4/summoners/{0}?api_key={1}".format(summoner_id, self._riot_api)
                     response = requests.get(summoner_api)
                     while response.status_code == 429:
-                        print(response.status_code)
                         time.sleep(10)
                         response = requests.get(summoner_api)
                     summoner = response.json()
@@ -98,7 +103,6 @@ class LolData:
                     matches_api = "https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/{0}/ids?type=ranked&count=100&api_key={1}".format(puuid, self._riot_api)
                     response = requests.get(matches_api)
                     while response.status_code == 429:
-                        print(response.status_code)
                         time.sleep(10)
                         response = requests.get(matches_api)
                     matches = response.json()
@@ -117,6 +121,7 @@ class LolData:
             path = "summoner_matches/{0}".format(rank)
             if not os.path.exists(path):
                 os.makedirs(path)
+            print("Generating matches for {0}".format(rank))
             file_path = "accounts/{0}.csv".format(rank)
             accounts = pd.read_csv(file_path)
             for index, row in accounts.iterrows():
@@ -124,7 +129,6 @@ class LolData:
                 summoner_api = "https://na1.api.riotgames.com/lol/summoner/v4/summoners/{0}?api_key={1}".format(summoner_id, self._riot_api)
                 response = requests.get(summoner_api)
                 while response.status_code == 429:
-                    print(response.status_code)
                     time.sleep(10)
                     response = requests.get(summoner_api)
                 summoner = response.json()
@@ -132,7 +136,6 @@ class LolData:
                 matches_api = "https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/{0}/ids?type=ranked&count=100&api_key={1}".format(puuid, self._riot_api)
                 response = requests.get(matches_api)
                 while response.status_code == 429:
-                    print(response.status_code)
                     time.sleep(10)
                     response = requests.get(matches_api)
                 matches = response.json()
@@ -174,6 +177,7 @@ class LolData:
                 path = "match_data/{0}/{1}".format(rank, division)
                 if not os.path.exists(path):
                     os.makedirs(path)
+                print("Generating match data for {0} {1}".format(rank, division))
                 file_path = "summoner_matches/{0}/{1}".format(rank, division)
                 for account in os.listdir(file_path):
                     account_path = "{0}/{1}".format(file_path, account)
@@ -186,7 +190,6 @@ class LolData:
                             curr_match = "https://americas.api.riotgames.com/lol/match/v5/matches/{0}?api_key={1}".format(match, self._riot_api)
                             response = requests.get(curr_match)
                             while response.status_code == 429:
-                                print(response.status_code)
                                 time.sleep(10)
                                 response = requests.get(curr_match)
                             match_data = response.json()
@@ -200,6 +203,7 @@ class LolData:
             path = "match_data/{0}".format(rank)
             if not os.path.exists(path):
                 os.makedirs(path)
+            print("Generating match data for {0}".format(rank))
             file_path = "summoner_matches/{0}".format(rank)
             for account in os.listdir(file_path):
                 account_path = "{0}/{1}".format(file_path, account)
@@ -212,11 +216,19 @@ class LolData:
                         curr_match = "https://americas.api.riotgames.com/lol/match/v5/matches/{0}?api_key={1}".format(match, self._riot_api)
                         response = requests.get(curr_match)
                         while response.status_code == 429:
-                            print(response.status_code)
                             time.sleep(10)
                             response = requests.get(curr_match)
                         match_data = response.json()
                         json_path = "{0}/{1}.json".format(match_path, match)
                         json_file = json.dumps(match_data, indent=4)
                         with open(json_path, "w") as file:
-                            file.write(json_file)       
+                            file.write(json_file)      
+
+    def verify_data(self):
+        for rank in self.ranks:
+            for division in self.divisions:
+                print("Verifying data for {0} {1}".format(rank, division))
+                file_path = "accounts/{0}_{1}.csv".format(rank, division)
+                accounts = pd.read_csv(file_path)
+                accounts = accounts['summonerId'].unique()
+                assert accounts.shape[0] == 100
