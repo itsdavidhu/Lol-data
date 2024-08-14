@@ -1,6 +1,9 @@
 from lol_data import LolData
 
 def collect_data():
+    """
+    Function to load all data for analysis
+    """
     lol_data = LolData()
     lol_data.load_general_accounts()
     lol_data.verify_data()
@@ -12,7 +15,6 @@ def collect_data():
 
 def main():
     collect_data()
-
 
 if __name__ == "__main__":
     main()
