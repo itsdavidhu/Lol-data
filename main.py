@@ -2,7 +2,7 @@ from lol_data import LolData
 
 def collect_data():
     """
-    Function to load all data for analysis.
+    Function to collect all necessary data for analysis.
     """
     lol_data = LolData()
     lol_data.load_general_accounts()
