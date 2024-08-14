@@ -16,6 +16,9 @@ class LolData:
         self.winrates = {}
 
     def load_general_accounts(self):
+        """
+        Function to load 100 accounts DIAMOND to IRON with more than 200 games played.
+        """        
         for rank in self.ranks:
             for division in self.divisions:
                 path = "accounts"
@@ -57,6 +60,9 @@ class LolData:
                         page += 1
     
     def load_high_elo_accounts(self):
+        """
+        Function to load all accounts in high elo (challenger, grandmaster, master).
+        """       
         for rank in self.high_elo:
             path = "accounts"
             if not os.path.exists(path):
@@ -83,6 +89,10 @@ class LolData:
                                         curr_account["freshBlood"], curr_account["hotStreak"]])
                     
     def load_general_matches(self):
+        """
+        Function to load the match ids of the last 100 games for each account 
+        generated between DIAMOND AND IRON.
+        """
         for rank in self.ranks:
             for division in self.divisions:
                 path = "summoner_matches/{0}/{1}".format(rank, division)
@@ -117,6 +127,10 @@ class LolData:
                         file.write(json_file)
 
     def load_high_elo_matches(self):
+        """
+        Function to load the match ids of the last 100 games for each account
+        in high elo (challenger, grandmaster, master).
+        """
         for rank in self.high_elo:
             path = "summoner_matches/{0}".format(rank)
             if not os.path.exists(path):
@@ -149,6 +163,9 @@ class LolData:
                     file.write(json_file)
 
     def general_stats(self):
+        """
+        Function to load the winrate stats for each division.
+        """
         for rank in self.ranks:
             for division in self.divisions:
                 file_path = "accounts/{0}_{1}.csv".format(rank, division)
@@ -172,6 +189,10 @@ class LolData:
             file.write(winrates_json)
     
     def load_general_match_data(self):
+        """
+        Function to load the match data of the past 100 games for each account
+        between DIAMOND and IRON.
+        """
         for rank in self.ranks:
             for division in self.divisions:
                 path = "match_data/{0}/{1}".format(rank, division)
@@ -199,6 +220,10 @@ class LolData:
                                 file.write(json_file)       
     
     def load_high_elo_match_data(self):
+        """
+        Function to load the match data of the past 100 games for each account
+        in high elo (challenger, grandmaster, master).
+        """
         for rank in self.high_elo:
             path = "match_data/{0}".format(rank)
             if not os.path.exists(path):
@@ -225,6 +250,10 @@ class LolData:
                             file.write(json_file)      
 
     def verify_data(self):
+        """
+        Function to verify the accounts generated between DIAMOND and IRON 
+        are not duplicates.
+        """
         for rank in self.ranks:
             for division in self.divisions:
                 print("Verifying data for {0} {1}".format(rank, division))
