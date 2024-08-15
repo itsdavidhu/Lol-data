@@ -279,31 +279,37 @@ class LolData:
             file_path = "summoner_matches/{0}".format(rank)
 
             # Get accounts and match ids
+            count = 0
             for account in os.listdir(file_path):
 
                 account_path = "{0}/{1}".format(file_path, account)
                 with open(account_path, "r") as file:
                     account_matches = json.load(file)
+                    if account_matches['wins'] + account_matches['losses'] > 200:
 
-                    match_path = "{0}/{1}".format(path, account_matches['puuid'])
-                    if not os.path.exists(match_path):
-                        os.makedirs(match_path)
+                        match_path = "{0}/{1}".format(path, account_matches['puuid'])
+                        if not os.path.exists(match_path):
+                            os.makedirs(match_path)
 
-                    # Get match data
-                    for match in account_matches['matches']:
+                        # Get match data
+                        for match in account_matches['matches']:
 
-                        curr_match = "https://americas.api.riotgames.com/lol/match/v5/matches/{0}?api_key={1}".format(match, self._riot_api)
-                        response = requests.get(curr_match)
-                        while response.status_code == 429:
-                            time.sleep(10)
+                            curr_match = "https://americas.api.riotgames.com/lol/match/v5/matches/{0}?api_key={1}".format(match, self._riot_api)
                             response = requests.get(curr_match)
-                        match_data = response.json()
+                            while response.status_code == 429:
+                                time.sleep(10)
+                                response = requests.get(curr_match)
+                            match_data = response.json()
 
-                        # Write match data
-                        json_path = "{0}/{1}.json".format(match_path, match)
-                        json_file = json.dumps(match_data, indent=4)
-                        with open(json_path, "w") as file:
-                            file.write(json_file)      
+                            # Write match data
+                            json_path = "{0}/{1}.json".format(match_path, match)
+                            json_file = json.dumps(match_data, indent=4)
+                            with open(json_path, "w") as file:
+                                file.write(json_file)      
+                        
+                        count += 1
+                        if count >= 100:
+                            break              
 
     def verify_data(self):
         """
