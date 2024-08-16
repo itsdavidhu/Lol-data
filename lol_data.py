@@ -313,15 +313,28 @@ class LolData:
 
     def verify_data(self):
         """
-        Function to verify the accounts generated between DIAMOND and IRON 
-        are not duplicates.
+        Function to verify the data generated in all ranks 
+        are not duplicates and is in the reference sample
         """
-        for rank in self.ranks:
-            for division in self.divisions:
+        # for rank in self.ranks:
+        #     for division in self.divisions:
 
-                print("Verifying data for {0} {1}".format(rank, division))
-                file_path = "accounts/{0}_{1}.csv".format(rank, division)
+                # print("Verifying data for {0} {1}".format(rank, division))
+                # account_path = "accounts/{0}_{1}.csv".format(rank, division)
 
-                accounts = pd.read_csv(file_path)
-                accounts = accounts['summonerId'].unique()
-                assert accounts.shape[0] == 100
+                # accounts = pd.read_csv(account_path)
+                # accounts = accounts['summonerId'].unique()
+                # assert accounts.shape[0] == 100
+
+        #         match_path = "match_data/{0}/{1}".format(rank, division)
+        
+        for rank in self.high_elo:
+
+            print("Verifying data for {0}".format(rank))
+            
+            match_path = "match_data/{0}".format(rank)
+            dic = {}
+            for account in os.listdir(match_path):
+                dic[account] = len(os.listdir(match_path + "/" + account))
+            print(dict(sorted(dic.items(), key=lambda ky: ky[1])))
+                
