@@ -337,4 +337,3 @@ class LolData:
             for account in os.listdir(match_path):
                 dic[account] = len(os.listdir(match_path + "/" + account))
             print(dict(sorted(dic.items(), key=lambda ky: ky[1])))
-                
