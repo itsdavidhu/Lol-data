@@ -89,7 +89,7 @@ class LolAnalysis():
                 print(rank_path, k_wins)
 
         json_file = json.dumps(total, indent=4)
-        with open("session_winrates.json", "r") as file:
+        with open("session_winrates.json", "w") as file:
             file.write(json_file)
 
     def game_result(self, game, puuid):
