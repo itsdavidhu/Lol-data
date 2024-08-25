@@ -1,3 +1,7 @@
-api_key = "RGAPI-4fc6a1a6-7e14-4b41-94e7-2b69cbee9241"
+import requests
+import os
+from dotenv import load_dotenv
 
-print(api_key)
+load_dotenv()
+riot_api = os.environ["RIOT_API"]
+
