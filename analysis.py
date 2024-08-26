@@ -34,10 +34,6 @@ class LolAnalysis():
                         curr = json.load(file)
                         if "status" not in curr.keys() and curr['info']['endOfGameResult'] == 'GameComplete':
                             result = self.game_result(curr, account)
-                            if result:
-                                result = 0
-                            else:
-                                result = 1
                             start = curr['info']['gameStartTimestamp']
                             end = curr['info']['gameEndTimestamp']
                             if start - last_game < 1800000:
@@ -105,7 +101,9 @@ class LolAnalysis():
         """
         index = game['metadata']['participants'].index(puuid)
         result = game['info']['participants'][index]['win']
-        return result
+        if result:
+            return 0
+        return 1
     
     def breaks(self):
         """
@@ -185,4 +183,96 @@ class LolAnalysis():
 
         json_file = json.dumps(total, indent=4)
         with open("breaks.json", "w") as file:
+            file.write(json_file)
+
+    def streaks(self):
+        """
+        Winrate after streaks of length greater than 
+        or equal to 3 wins or losses.
+        """
+        path = "LolData"
+        total = {}
+        for rank in self.high_elo:
+
+            rank_path = "{0}/{1}".format(path, rank)
+            streaks = {}
+            for i in range(3, 11):
+                streaks[i] = {}
+                streaks[i][0] = [0, 0]
+                streaks[i][1] = [0, 0]
+
+            for account in os.listdir(rank_path):
+
+                account_path = "{0}/{1}".format(rank_path, account)
+                last_game = 0
+                last_result = 0
+                k = 0
+
+                for game in os.listdir(account_path):
+                    game_path = "{0}/{1}".format(account_path, game)
+
+                    with open(game_path, "r") as file:
+                        curr = json.load(file)
+                        if "status" not in curr.keys() and curr['info']['endOfGameResult'] == 'GameComplete':
+                            result = self.game_result(curr, account)
+                            start = curr['info']['gameStartTimestamp']
+                            end = curr['info']['gameEndTimestamp']
+                            if start - last_game < 1800000 and k >= 3:
+                                if k >= 10:
+                                    streaks[10][last_result][result] += 1
+                                else:
+                                    streaks[k][last_result][result] += 1
+                            if result == last_result:
+                                k += 1
+                            else:
+                                k = 1
+                            last_game = end
+                            last_result = result
+
+            total[rank] = streaks
+            print(rank_path, streaks)
+
+        for rank in self.ranks:
+            for division in self.divisions:
+
+                rank_path = "{0}/{1}/{2}".format(path, rank, division)
+                streaks = {}
+                for i in range(3, 11):
+                    streaks[i] = {}
+                    streaks[i][0] = [0, 0]
+                    streaks[i][1] = [0, 0]
+
+                for account in os.listdir(rank_path):
+
+                    account_path = "{0}/{1}".format(rank_path, account)
+                    last_game = 0
+                    last_result = 0
+                    k = 0
+
+                    for game in os.listdir(account_path):
+                        game_path = "{0}/{1}".format(account_path, game)
+
+                        with open(game_path, "r") as file:
+                            curr = json.load(file)
+                            if "status" not in curr.keys() and curr['info']['endOfGameResult'] == 'GameComplete':
+                                result = self.game_result(curr, account)
+                                start = curr['info']['gameStartTimestamp']
+                                end = curr['info']['gameEndTimestamp']
+                                if start - last_game < 1800000 and k >= 3:
+                                    if k >= 10:
+                                        streaks[10][last_result][result] += 1
+                                    else:
+                                        streaks[k][last_result][result] += 1
+                                if result == last_result:
+                                    k += 1
+                                else:
+                                    k = 1
+                                last_game = end
+                                last_result = result
+
+                total[rank] = streaks
+                print(rank_path, streaks)
+
+        json_file = json.dumps(total, indent=4)
+        with open("streaks_winrates.json", "w") as file:
             file.write(json_file)
