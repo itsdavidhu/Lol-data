@@ -69,6 +69,7 @@ def streaks():
 
     for i in range(3, 11):
         total[i] = [round(total[i][0] / (total[i][0] + total[i][1]), ndigits=3), round(total[i][2] / (total[i][2] + total[i][3]), ndigits=3)]
+    total["10+"] = total.pop(10)
 
     sessions = pd.DataFrame.from_dict(total, orient='index')
     sessions.index.name = "Streak length"
@@ -79,4 +80,20 @@ def streaks():
     ax.get_legend().remove()
     plt.show()
 
-streaks()
+def opt_session():
+    path = "opt_session.json"
+    session = pd.read_json(path)
+    total = {}
+    for i in range(1, 13):
+        total[i] = [0, 0]
+    for index, row in session.iterrows():
+        for rank in high_elo:
+            total[index][0] += row[rank][0]
+            total[index][1] += row[rank][1]
+    print(total)
+    sum_total = 0
+    for i in range(1, 13):
+        sum_total += session['challengerleagues'][i][0] + session['challengerleagues'][i][1]
+    print(sum_total)
+    
+opt_session()
