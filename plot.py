@@ -51,6 +51,32 @@ def breaks():
 def streaks():
     path = "streaks_winrates.json"
     streaks = pd.read_json(path)
-    print(streaks)
+
+    total = {}
+    for i in range(3, 11):
+        total[i] = [0, 0, 0, 0]
+    for index, row in streaks.iterrows():
+        for rank in high_elo:
+            total[index][0] += row[rank]['0'][0]
+            total[index][1] += row[rank]['0'][1]
+            total[index][2] += row[rank]['1'][0]
+            total[index][3] += row[rank]['1'][1]
+        for rank in ranks:
+            total[index][0] += row[rank]['0'][0]
+            total[index][1] += row[rank]['0'][1]
+            total[index][2] += row[rank]['1'][0]
+            total[index][3] += row[rank]['1'][1]
+
+    for i in range(3, 11):
+        total[i] = [round(total[i][0] / (total[i][0] + total[i][1]), ndigits=3), round(total[i][2] / (total[i][2] + total[i][3]), ndigits=3)]
+
+    sessions = pd.DataFrame.from_dict(total, orient='index')
+    sessions.index.name = "Streak length"
+    ax = sessions.plot.bar(ylim=(0.4, 0.70), ylabel="Winrate")
+
+    for container in ax.containers:
+        ax.bar_label(container)
+    ax.get_legend().remove()
+    plt.show()
 
 streaks()

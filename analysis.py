@@ -276,3 +276,6 @@ class LolAnalysis():
         json_file = json.dumps(total, indent=4)
         with open("streaks_winrates.json", "w") as file:
             file.write(json_file)
+
+    def session_winrate(self):
+        path = "LolData"
