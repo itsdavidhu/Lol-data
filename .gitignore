@@ -1,3 +1,5 @@
 .env
 LolData/
 match_data/
+.venv/
+__pycache__/
