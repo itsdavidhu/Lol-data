@@ -16,7 +16,7 @@ def collect_data():
 
 def main():
     lol_analysis = LolAnalysis()
-    lol_analysis.breaks()
+    lol_analysis.streaks()
 
 if __name__ == "__main__":
     main()
