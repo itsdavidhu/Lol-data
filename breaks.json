@@ -1,126 +1,312 @@
 {
-    "masterleagues": {
-        "wins": 349,
-        "losses": 337
-    },
-    "grandmasterleagues": {
-        "wins": 357,
-        "losses": 321
-    },
-    "challengerleagues": {
-        "wins": 331,
-        "losses": 272
-    },
-    "DIAMOND/I": {
-        "wins": 335,
-        "losses": 305
-    },
-    "DIAMOND/II": {
-        "wins": 389,
-        "losses": 369
-    },
-    "DIAMOND/III": {
-        "wins": 436,
-        "losses": 362
-    },
-    "DIAMOND/IV": {
-        "wins": 409,
-        "losses": 349
-    },
-    "EMERALD/I": {
-        "wins": 389,
-        "losses": 406
-    },
-    "EMERALD/II": {
-        "wins": 441,
-        "losses": 426
-    },
-    "EMERALD/III": {
-        "wins": 435,
-        "losses": 409
-    },
-    "EMERALD/IV": {
-        "wins": 459,
-        "losses": 418
-    },
-    "PLATINUM/I": {
-        "wins": 403,
-        "losses": 452
-    },
-    "PLATINUM/II": {
-        "wins": 480,
-        "losses": 485
-    },
-    "PLATINUM/III": {
-        "wins": 432,
-        "losses": 441
-    },
-    "PLATINUM/IV": {
-        "wins": 412,
-        "losses": 425
-    },
-    "GOLD/I": {
-        "wins": 466,
-        "losses": 440
-    },
-    "GOLD/II": {
-        "wins": 421,
-        "losses": 366
-    },
-    "GOLD/III": {
-        "wins": 423,
-        "losses": 485
-    },
-    "GOLD/IV": {
-        "wins": 416,
-        "losses": 469
-    },
-    "SILVER/I": {
-        "wins": 416,
-        "losses": 447
-    },
-    "SILVER/II": {
-        "wins": 493,
-        "losses": 459
-    },
-    "SILVER/III": {
-        "wins": 412,
-        "losses": 394
-    },
-    "SILVER/IV": {
-        "wins": 399,
-        "losses": 423
-    },
-    "BRONZE/I": {
-        "wins": 518,
-        "losses": 450
-    },
-    "BRONZE/II": {
-        "wins": 476,
-        "losses": 458
-    },
-    "BRONZE/III": {
-        "wins": 494,
-        "losses": 504
-    },
-    "BRONZE/IV": {
-        "wins": 463,
-        "losses": 483
-    },
-    "IRON/I": {
-        "wins": 479,
-        "losses": 510
-    },
-    "IRON/II": {
-        "wins": 448,
-        "losses": 514
-    },
-    "IRON/III": {
-        "wins": 579,
-        "losses": 630
-    },
-    "IRON/IV": {
-        "wins": 530,
-        "losses": 661
-    }
+    "challengerleagues": [
+        [
+            625,
+            468
+        ],
+        [
+            331,
+            272
+        ]
+    ],
+    "grandmasterleagues": [
+        [
+            547,
+            477
+        ],
+        [
+            357,
+            321
+        ]
+    ],
+    "masterleagues": [
+        [
+            502,
+            482
+        ],
+        [
+            349,
+            337
+        ]
+    ],
+    "DIAMOND/I": [
+        [
+            471,
+            444
+        ],
+        [
+            335,
+            305
+        ]
+    ],
+    "DIAMOND/II": [
+        [
+            434,
+            452
+        ],
+        [
+            389,
+            369
+        ]
+    ],
+    "DIAMOND/III": [
+        [
+            525,
+            455
+        ],
+        [
+            436,
+            362
+        ]
+    ],
+    "DIAMOND/IV": [
+        [
+            443,
+            434
+        ],
+        [
+            409,
+            349
+        ]
+    ],
+    "EMERALD/I": [
+        [
+            464,
+            440
+        ],
+        [
+            389,
+            406
+        ]
+    ],
+    "EMERALD/II": [
+        [
+            533,
+            482
+        ],
+        [
+            441,
+            426
+        ]
+    ],
+    "EMERALD/III": [
+        [
+            466,
+            446
+        ],
+        [
+            435,
+            409
+        ]
+    ],
+    "EMERALD/IV": [
+        [
+            530,
+            491
+        ],
+        [
+            459,
+            418
+        ]
+    ],
+    "PLATINUM/I": [
+        [
+            504,
+            485
+        ],
+        [
+            403,
+            452
+        ]
+    ],
+    "PLATINUM/II": [
+        [
+            537,
+            490
+        ],
+        [
+            480,
+            485
+        ]
+    ],
+    "PLATINUM/III": [
+        [
+            486,
+            495
+        ],
+        [
+            432,
+            441
+        ]
+    ],
+    "PLATINUM/IV": [
+        [
+            474,
+            507
+        ],
+        [
+            412,
+            425
+        ]
+    ],
+    "GOLD/I": [
+        [
+            480,
+            512
+        ],
+        [
+            466,
+            440
+        ]
+    ],
+    "GOLD/II": [
+        [
+            541,
+            481
+        ],
+        [
+            421,
+            366
+        ]
+    ],
+    "GOLD/III": [
+        [
+            475,
+            519
+        ],
+        [
+            423,
+            485
+        ]
+    ],
+    "GOLD/IV": [
+        [
+            518,
+            476
+        ],
+        [
+            416,
+            469
+        ]
+    ],
+    "SILVER/I": [
+        [
+            494,
+            473
+        ],
+        [
+            416,
+            447
+        ]
+    ],
+    "SILVER/II": [
+        [
+            496,
+            499
+        ],
+        [
+            493,
+            459
+        ]
+    ],
+    "SILVER/III": [
+        [
+            473,
+            477
+        ],
+        [
+            412,
+            394
+        ]
+    ],
+    "SILVER/IV": [
+        [
+            478,
+            463
+        ],
+        [
+            399,
+            423
+        ]
+    ],
+    "BRONZE/I": [
+        [
+            525,
+            539
+        ],
+        [
+            518,
+            450
+        ]
+    ],
+    "BRONZE/II": [
+        [
+            504,
+            476
+        ],
+        [
+            476,
+            458
+        ]
+    ],
+    "BRONZE/III": [
+        [
+            507,
+            498
+        ],
+        [
+            494,
+            504
+        ]
+    ],
+    "BRONZE/IV": [
+        [
+            448,
+            489
+        ],
+        [
+            463,
+            483
+        ]
+    ],
+    "IRON/I": [
+        [
+            537,
+            460
+        ],
+        [
+            479,
+            510
+        ]
+    ],
+    "IRON/II": [
+        [
+            465,
+            509
+        ],
+        [
+            448,
+            514
+        ]
+    ],
+    "IRON/III": [
+        [
+            505,
+            598
+        ],
+        [
+            579,
+            630
+        ]
+    ],
+    "IRON/IV": [
+        [
+            429,
+            541
+        ],
+        [
+            530,
+            661
+        ]
+    ]
 }
