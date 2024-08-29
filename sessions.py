@@ -23,6 +23,7 @@ master_games = Path("E:/GOTIME/Lol-data/LolData/masterleagues")
 def time_of_game(match):
     game_creation = match['info']['gameCreation']
     game_duration = match['info']['gameDuration']
+    game_duration = game_duration * 1000
 
     return game_creation + game_duration
 
@@ -37,7 +38,6 @@ def track_session(puuid, directory):
     sessions = []
     current_session = []
     previous_game_time = 0
-    puuid = puuid
 
     for filename in os.listdir(directory):
         file_path = os.path.join(directory, filename)
@@ -73,6 +73,7 @@ def track_session(puuid, directory):
 
     if current_session:
         sessions.append(current_session)
+
 
     return sessions
 
@@ -117,24 +118,30 @@ def avg_for_all_players(outputs):
 
 
 def get_to_work(ranked_games):
-        poo = []
+        list_outputs = []
         for subdir in os.listdir(ranked_games):
             puuid = subdir
             subdir_path = os.path.join(ranked_games, subdir)
 
             try:
-                fart = track_session(puuid, subdir_path)
-                fart2 = avg_wr_for_session_length(fart)
-                poo.append(fart2)
+                tracked_sessions = track_session(puuid, subdir_path)
+                avg_session_wr = avg_wr_for_session_length(tracked_sessions)
+                list_outputs.append(avg_session_wr)
                 
             except Exception as e:
-                print("womp womp")
+                None
 
-        fart3 = avg_for_all_players(poo)
-        print(fart3)
+        final_avg = avg_for_all_players(list_outputs)
+        return final_avg
 
-
-get_to_work(challenger_games)
+yes = []
+chall = get_to_work(challenger_games)
+gm = get_to_work(gm_games)
+master = get_to_work(master_games)
+yes.append(chall)
+yes.append(gm)
+yes.append(master)
+print(avg_for_all_players(yes))
 
 
 
