@@ -96,25 +96,64 @@ def avg_for_all(outputs):
 
     combined_dict_losses = dict(combined_dict_losses)
 
+    return dict(sorted(combined_dict_wins.items())), dict(sorted(combined_dict_losses.items()))
+
+def avg_for_all2(outputs):
+    
+    combined_dict_wins = defaultdict(lambda: [0, 0])
+    combined_dict_losses = defaultdict(lambda: [0, 0])
+
+    for d in outputs:
+        for key, value in d[0].items():
+            sum = value[0] * value[1]
+            combined_dict_wins[key][0] += sum
+            combined_dict_wins[key][1] += value[1]
+
+        for key, value in d[1].items():
+            sum = value[0] * value[1]
+            combined_dict_losses[key][0] += sum
+            combined_dict_losses[key][1] += value[1]
+
+    for k, v in combined_dict_wins.items():
+        total_sum = v[0]
+        total_occurences = v[1]
+        fianl_sum = total_sum / total_occurences
+        combined_dict_wins[k][0] = fianl_sum
+
+    combined_dict_wins = dict(combined_dict_wins)
+
+    for k, v in combined_dict_losses.items():
+        total_sum = v[0]
+        total_occurences = v[1]
+        fianl_sum = total_sum / total_occurences
+        combined_dict_losses[k][0] = fianl_sum
+
+    combined_dict_losses = dict(combined_dict_losses)
+
     return "Win percentage after X wins: " + str(dict(sorted(combined_dict_wins.items()))), "Win percentage after X losses: " + str(dict(sorted(combined_dict_losses.items())))
 
     
 def go_time(ranked_games):
-    yes = []
+    list_outputs = []
     for subdir in os.listdir(ranked_games):
         puuid = subdir
         subdir_path = os.path.join(ranked_games, subdir)
 
         try: 
-            fart = find_streak_wr(puuid, subdir_path)
-            yes.append(fart)
+            streak_wr = find_streak_wr(puuid, subdir_path)
+            list_outputs.append(streak_wr)
 
         except Exception as e:
-            print("womp womp")
+            None
 
-    fart3 = avg_for_all(yes)
-    print(fart3)
+    avg_for_all_ranks = avg_for_all(list_outputs)
+    return avg_for_all_ranks
 
-
-go_time(challenger_games)
-        
+yes = []
+chall = go_time(challenger_games)
+gm = go_time(gm_games)
+master = go_time(master_games)
+yes.append(chall)
+yes.append(gm)
+yes.append(master)
+print(avg_for_all2(yes))
