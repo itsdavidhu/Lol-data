@@ -88,7 +88,7 @@ class LolAnalysis():
                 print(rank_path, k_wins)
 
         json_file = json.dumps(total, indent=4)
-        with open("session_winrates.json", "w") as file:
+        with open("data/session_winrates.json", "w") as file:
             file.write(json_file)
 
     def game_result(self, game, puuid):
@@ -103,22 +103,21 @@ class LolAnalysis():
     
     def breaks(self):
         """
-        Function to determine winrate of a game after taking a break.
+        Function to determine winrate of a game after taking a break
+        given win or loss before.
         """
         path = "LolData"
         total = {}
         for rank in self.high_elo:
 
             rank_path = "{0}/{1}".format(path, rank)
-            breaks = {}
-            breaks['wins'] = 0
-            breaks['losses'] = 0
+            breaks = [[0, 0], [0, 0]]
 
             for account in os.listdir(rank_path):
 
                 account_path = "{0}/{1}".format(rank_path, account)
                 last_game = 0
-                last_game_result = ''
+                last_game_result = 0
 
                 for game in os.listdir(account_path):
                     game_path = "{0}/{1}".format(account_path, game)
@@ -127,14 +126,10 @@ class LolAnalysis():
                         curr = json.load(file)
                         if "status" not in curr.keys() and curr['info']['endOfGameResult'] == 'GameComplete':
                             result = self.game_result(curr, account)
-                            if result:
-                                result = 'wins'
-                            else:
-                                result = 'losses'
                             start = curr['info']['gameStartTimestamp']
                             end = curr['info']['gameEndTimestamp']
-                            if start - last_game > 1800000 and start - last_game < 28800000 and last_game_result == "losses":
-                                breaks[result] += 1
+                            if start - last_game > 1800000 and start - last_game < 28800000:
+                                breaks[last_game_result][result] += 1
                             last_game = end
                             last_game_result = result
                             
@@ -145,15 +140,13 @@ class LolAnalysis():
             for division in self.divisions: 
 
                 rank_path = "{0}/{1}/{2}".format(path, rank, division)
-                breaks = {}
-                breaks['wins'] = 0
-                breaks['losses'] = 0
+                breaks = [[0, 0], [0, 0]]
 
                 for account in os.listdir(rank_path):
 
                     account_path = "{0}/{1}".format(rank_path, account)
                     last_game = 0
-                    last_game_result = ""
+                    last_game_result = 0
 
                     for game in os.listdir(account_path):
                         game_path = "{0}/{1}".format(account_path, game)
@@ -162,23 +155,18 @@ class LolAnalysis():
                             curr = json.load(file)
                             if "status" not in curr.keys() and curr['info']['endOfGameResult'] == 'GameComplete':
                                 result = self.game_result(curr, account)
-                                if result:
-                                    result = 'wins'
-                                else:
-                                    result = 'losses'
                                 start = curr['info']['gameStartTimestamp']
                                 end = curr['info']['gameEndTimestamp']
-                                if start - last_game > 1800000 and start - last_game < 28800000 and last_game_result == "losses":
-                                    breaks[result] += 1
+                                if start - last_game > 1800000 and start - last_game < 28800000:
+                                    breaks[last_game_result][result] += 1
                                 last_game = end
                                 last_game_result = result
-
 
                 total["{0}/{1}".format(rank, division)] = breaks
                 print(rank_path, breaks)
 
         json_file = json.dumps(total, indent=4)
-        with open("breaks.json", "w") as file:
+        with open("data/breaks.json", "w") as file:
             file.write(json_file)
 
     def streaks(self):
@@ -270,10 +258,14 @@ class LolAnalysis():
                 print(rank_path, streaks)
 
         json_file = json.dumps(total, indent=4)
-        with open("streaks_winrates.json", "w") as file:
+        with open("data/streaks_winrates.json", "w") as file:
             file.write(json_file)
 
     def session_winrate(self):
+        """
+        Function to determine the winrate of a session given k # of 
+        games played
+        """
         path = "LolData"
         total = {}
         for rank in self.high_elo:
@@ -368,5 +360,5 @@ class LolAnalysis():
                 print(rank_path, k_wins)
 
         json_file = json.dumps(total, indent=4)
-        with open("opt_session.json", "w") as file:
+        with open("data/opt_session.json", "w") as file:
             file.write(json_file)

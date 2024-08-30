@@ -1,5 +1,5 @@
-from lol_data import LolData
-from analysis import LolAnalysis
+from data.lol_data import LolData
+from analysis.analysis import LolAnalysis
 
 def collect_data():
     """
@@ -16,7 +16,7 @@ def collect_data():
 
 def main():
     lol_analysis = LolAnalysis()
-    lol_analysis.streaks()
+    lol_analysis.breaks()
 
 if __name__ == "__main__":
     main()
