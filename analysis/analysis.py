@@ -88,7 +88,7 @@ class LolAnalysis():
                 print(rank_path, k_wins)
 
         json_file = json.dumps(total, indent=4)
-        with open("session_winrates.json", "w") as file:
+        with open("data/session_winrates.json", "w") as file:
             file.write(json_file)
 
     def game_result(self, game, puuid):
@@ -166,7 +166,7 @@ class LolAnalysis():
                 print(rank_path, breaks)
 
         json_file = json.dumps(total, indent=4)
-        with open("breaks.json", "w") as file:
+        with open("data/breaks.json", "w") as file:
             file.write(json_file)
 
     def streaks(self):
@@ -258,7 +258,7 @@ class LolAnalysis():
                 print(rank_path, streaks)
 
         json_file = json.dumps(total, indent=4)
-        with open("streaks_winrates.json", "w") as file:
+        with open("data/streaks_winrates.json", "w") as file:
             file.write(json_file)
 
     def session_winrate(self):
@@ -360,5 +360,5 @@ class LolAnalysis():
                 print(rank_path, k_wins)
 
         json_file = json.dumps(total, indent=4)
-        with open("opt_session.json", "w") as file:
+        with open("data/opt_session.json", "w") as file:
             file.write(json_file)

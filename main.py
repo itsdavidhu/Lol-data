@@ -1,5 +1,5 @@
-from lol_data import LolData
-from analysis import LolAnalysis
+from data.lol_data import LolData
+from analysis.analysis import LolAnalysis
 
 def collect_data():
     """
