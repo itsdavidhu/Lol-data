@@ -15,28 +15,29 @@ df.reset_index(inplace=True)
 # Prepare data for regression
 X = df[['Games in Session']]  # Independent variable
 y = df['Win Percentage']      # Dependent variable
+weights = df['Occurrences']   # Weights based on occurrences
 
 # Initialize and fit the linear regression model
 model = LinearRegression()
-model.fit(X, y)
+model.fit(X, y, sample_weight=weights)
 
 # Make predictions
 y_pred = model.predict(X)
 
 # Calculate metrics
-mse = mean_squared_error(y, y_pred)
-r2 = r2_score(y, y_pred)
+mse = mean_squared_error(y, y_pred, sample_weight=weights)
+r2 = r2_score(y, y_pred, sample_weight=weights)
 
 print(f"Mean Squared Error: {mse}")
 print(f"R-squared: {r2}")
 
 # Plot results
 plt.figure(figsize=(10, 6))
-plt.scatter(df['Games in Session'], df['Win Percentage'], color='blue', label='Actual Data')
+plt.scatter(df['Games in Session'], df['Win Percentage'], color='blue', label='Data (scales with occurences)', s=weights)  # Size based on occurrences
 plt.plot(df['Games in Session'], y_pred, color='red', linewidth=2, label='Fitted Line')
 plt.xlabel('Games in Session')
 plt.ylabel('Win Percentage')
-plt.title('Linear Regression: Win Percentage vs. Games in Session')
-plt.legend()
+plt.title('Weighted Linear Regression: Win Percentage vs. Games in Session')
+plt.legend(loc='upper right', scatterpoints=1, markerscale=0.25, fontsize='medium', frameon=True)
 plt.grid(True)
 plt.show()
