@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import matplotlib.ticker as mtick
 import pandas as pd
 import numpy as np
 
@@ -8,7 +9,7 @@ high_elo = ["challengerleagues", "grandmasterleagues", "masterleagues"]
 rank_div = [[f"{rank}/{division}" for division in divisions] for rank in ranks]
 
 def session():
-    path = "data/session_winrates.json"
+    path = "session_winrates.json"
     sessions = pd.read_json(path)
 
     # high_elo_total = {}
@@ -49,21 +50,22 @@ def session():
                 total[index][1] += row[f"{rank}/{division}"][1]
 
     for i in range(13):
-        total[i] = round(total[i][0] / (total[i][0] + total[i][1]), ndigits=3)
+        total[i] = round(total[i][0] / (total[i][0] + total[i][1]), ndigits=3) * 100
     total['12+']= total.pop(12)
 
     general = pd.DataFrame.from_dict(total, orient='index')
     general.index.name = "Number of games played before"
-    ax = general.plot.bar(ylim=(0.45, 0.535), ylabel="Winrate")
+    ax = general.plot.bar(ylabel="Winrate", ylim=(45, 53.5))
+    ax.yaxis.set_major_formatter(mtick.PercentFormatter())
 
     for container in ax.containers:
-        ax.bar_label(container)
+        ax.bar_label(container, fmt='%.1f%%')
     ax.get_legend().remove()
-    plt.title("Optimal Session Length - General")
+    plt.title("Next Game Winrates given Session Length - General")
     plt.show()
 
 def breaks():
-    path = "data/breaks.json"
+    path = "breaks.json"
     breaks = pd.read_json(path)
     total = [[0, 0], [0, 0]]
     for rank in high_elo:
@@ -71,23 +73,23 @@ def breaks():
         total[0][1] += breaks[rank][0][1]
         total[1][0] += breaks[rank][1][0]
         total[1][1] += breaks[rank][1][1]
-    win_after_win = round(total[0][0] / (total[0][0] + total[0][1]), ndigits=4)
-    win_after_loss = round(total[1][0] / (total[1][0] + total[1][1]), ndigits=4)
-    print("Winrate after win given break in high elo:", win_after_win)
-    print("Winrate after loss given break in high elo:", win_after_loss)
+    win_after_win = round(total[0][0] / (total[0][0] + total[0][1]), ndigits=3) * 100
+    win_after_loss = round(total[1][0] / (total[1][0] + total[1][1]), ndigits=3) * 100
+    print("Winrate after win given break in high elo: {0}%".format(win_after_win))
+    print("Winrate after loss given break in high elo: {0}%".format(win_after_loss))
     for rank in ranks:
         for division in divisions:
             total[0][0] += breaks[f"{rank}/{division}"][0][0]
             total[0][1] += breaks[f"{rank}/{division}"][0][1]
             total[1][0] += breaks[f"{rank}/{division}"][1][0]
             total[1][1] += breaks[f"{rank}/{division}"][1][1]
-    win_after_win = round(total[0][0] / (total[0][0] + total[0][1]), ndigits=4)
-    win_after_loss = round(total[1][0] / (total[1][0] + total[1][1]), ndigits=4)
-    print("Winrate after win given break:", win_after_win)
-    print("Winrate after loss given break:", win_after_loss)
+    win_after_win = round(total[0][0] / (total[0][0] + total[0][1]), ndigits=3) * 100
+    win_after_loss = round(total[1][0] / (total[1][0] + total[1][1]), ndigits=3) * 100
+    print("Winrate after win given break: {0}%".format(win_after_win))
+    print("Winrate after loss given break: {0}%".format(win_after_loss))
 
 def streaks():
-    path = "data/streaks_winrates.json"
+    path = "streaks_winrates.json"
     sessions = pd.read_json(path)
 
     # high_elo_total = {}
@@ -130,21 +132,24 @@ def streaks():
                 total[index][2] += row[f"{rank}/{division}"]['1'][0]
                 total[index][3] += row[f"{rank}/{division}"]['1'][1]
     for i in range(3, 11):
-        total[i] = [round(total[i][0] / (total[i][0] + total[i][1]), ndigits=3), round(total[i][2] / (total[i][2] + total[i][3]), ndigits=3)]
+        total[i] = [round(total[i][0] / (total[i][0] + total[i][1]), ndigits=3) * 100, round(total[i][2] / (total[i][2] + total[i][3]), ndigits=3) * 100]
     total["10+"] = total.pop(10)
 
     general = pd.DataFrame.from_dict(total, orient='index')
     general.index.name = "Length of streak"
-    ax = general.plot.bar(ylim=(0.40, 0.65), ylabel="Winrate of next game")
+    ax = general.plot.bar(ylim=(40, 65), ylabel="Winrate")
+    ax.yaxis.set_major_formatter(mtick.PercentFormatter())
 
     for container in ax.containers:
-        ax.bar_label(container)
-    ax.get_legend().remove()
-    plt.title("Optimal Streak Length - General")
+        ax.bar_label(container, fmt='%.1f%%')
+    handles, labels = ax.get_legend_handles_labels()
+    labels = ['Win Streak', 'Loss Streak']
+    ax.legend(handles, labels)
+    plt.title("Next Game Winrate given Length of streak - General")
     plt.show()
 
 def opt_session():
-    path = "data/opt_session.json"
+    path = "opt_session.json"
     sessions = pd.read_json(path)
 
     high_elo_total = {}
@@ -157,17 +162,18 @@ def opt_session():
             high_elo_total[index][1] += row[rank][1]
 
     for i in range(1, 13):
-        high_elo_total[i] = round(high_elo_total[i][0] / (high_elo_total[i][0] + high_elo_total[i][1]), ndigits=3)
+        high_elo_total[i] = round(high_elo_total[i][0] / (high_elo_total[i][0] + high_elo_total[i][1]), ndigits=3) * 100
     high_elo_total['12+']= high_elo_total.pop(12)
 
     high_elo_graph = pd.DataFrame.from_dict(high_elo_total, orient='index')
     high_elo_graph.index.name = "Number of games played in a session"
-    ax = high_elo_graph.plot.bar(ylim=(0.45, 0.65), ylabel="Winrate")
+    ax = high_elo_graph.plot.bar(ylim=(45, 65), ylabel="Winrate")
+    ax.yaxis.set_major_formatter(mtick.PercentFormatter())
 
     for container in ax.containers:
-        ax.bar_label(container)
+        ax.bar_label(container, fmt='%.1f%%')
 
-    plt.title("Optimal Session Length - High Elo")
+    plt.title("Winrate of Session given Total Number of Games Played - High Elo")
     ax.get_legend().remove()
     plt.show()
 
@@ -183,17 +189,18 @@ def opt_session():
                 total[index][0] += row[f"{rank}/{division}"][0]
                 total[index][1] += row[f"{rank}/{division}"][1]
     for i in range(1, 13):
-        total[i] = round(total[i][0] / (total[i][0] + total[i][1]), ndigits=3)
+        total[i] = round(total[i][0] / (total[i][0] + total[i][1]), ndigits=3) * 100
     total['12+']= total.pop(12)
 
     general = pd.DataFrame.from_dict(total, orient='index')
-    general.index.name = "Number of games played in session"
-    ax = general.plot.bar(ylim=(0.45, 0.525), ylabel="Winrate of session")
+    general.index.name = "Number of games played in a session"
+    ax = general.plot.bar(ylim=(45, 53.5), ylabel="Winrate")
+    ax.yaxis.set_major_formatter(mtick.PercentFormatter())
 
     for container in ax.containers:
-        ax.bar_label(container)
+        ax.bar_label(container, fmt='%.1f%%')
     ax.get_legend().remove()
-    plt.title("Optimal Session Length - General")
+    plt.title("Winrate of Session given Total Number of Games Played - General")
     plt.show()
 
 session()
