@@ -9,7 +9,7 @@ high_elo = ["challengerleagues", "grandmasterleagues", "masterleagues"]
 rank_div = [[f"{rank}/{division}" for division in divisions] for rank in ranks]
 
 def session():
-    path = "session_winrates.json"
+    path = "data/session_winrates.json"
     sessions = pd.read_json(path)
 
     # high_elo_total = {}
@@ -65,7 +65,7 @@ def session():
     plt.show()
 
 def breaks():
-    path = "breaks.json"
+    path = "data/breaks.json"
     breaks = pd.read_json(path)
     total = [[0, 0], [0, 0]]
     for rank in high_elo:
@@ -89,7 +89,7 @@ def breaks():
     print("Winrate after loss given break: {0}%".format(win_after_loss))
 
 def streaks():
-    path = "streaks_winrates.json"
+    path = "data/streaks_winrates.json"
     sessions = pd.read_json(path)
 
     # high_elo_total = {}
@@ -149,7 +149,7 @@ def streaks():
     plt.show()
 
 def opt_session():
-    path = "opt_session.json"
+    path = "data/opt_session.json"
     sessions = pd.read_json(path)
 
     high_elo_total = {}
