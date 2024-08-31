@@ -1,4 +1,4 @@
-# League of Legends Data and Statisical Analysis
+# League of Legends Data and Statistical Analysis
 
 tl;dr
 - Longer sessions are better than shorter ones for the general playerbase, up until the 11th game onwards.
