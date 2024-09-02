@@ -1,7 +1,7 @@
 # League of Legends Data and Statistical Analysis
 
 *tl;dr*
-- Longer sessions are better than shorter ones for the general playerbase, up until the 11th game onwards.
+- Players perform best in their 8th to 10th game.
 - Shorter sessions are better than longer ones for high elo.
 - When winstreaking in a session, your chances of winning are higher.
 - When losestreaking in a session, your chances of winning are lower.
@@ -42,6 +42,7 @@ Our analysis begins with determining the optimal session length. We had two meth
 ![alt text](https://github.com/itsdavidhu/Lol-data/blob/main/images/total_high.png?raw=true)
 
 ## Streaks
+In this section, we wanted to see when you should stop playing after a win or loss streak. We've all been there, having to decide when to stop the hot streak, or play until 
 
 ![alt text](https://github.com/itsdavidhu/Lol-data/blob/main/images/streaks.png?raw=true)
 
