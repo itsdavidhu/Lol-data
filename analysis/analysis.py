@@ -362,3 +362,65 @@ class LolAnalysis():
         json_file = json.dumps(total, indent=4)
         with open("data/opt_session.json", "w") as file:
             file.write(json_file)
+
+    def average_win(self):
+        """
+        Function to determine the average win rate of player's games in each elo.
+        """
+        path = "LolData"
+        total = {}
+
+        for rank in self.high_elo:
+
+            rank_path = "{0}/{1}".format(path, rank)
+            wins = {}
+            wins['win'] = 0
+            wins['loss'] = 0
+
+            for account in os.listdir(rank_path):
+
+                account_path = "{0}/{1}".format(rank_path, account)
+                for game in os.listdir(account_path):
+                    game_path = "{0}/{1}".format(account_path, game)
+
+                    with open(game_path, "r") as file:
+                        curr = json.load(file)
+                        if "status" not in curr.keys() and curr['info']['endOfGameResult'] == 'GameComplete':
+                            result = self.game_result(curr, account)
+                            if not result:
+                                wins['win'] += 1
+                            else:
+                                wins['loss'] += 1
+
+            total[rank] = wins
+            print(rank_path, wins)
+        
+        for rank in self.ranks:
+            for division in self.divisions: 
+
+                rank_path = "{0}/{1}/{2}".format(path, rank, division)
+                wins = {}
+                wins['win'] = 0
+                wins['loss'] = 0
+                
+                for account in os.listdir(rank_path):
+
+                    account_path = "{0}/{1}".format(rank_path, account)
+                    for game in os.listdir(account_path):
+                        game_path = "{0}/{1}".format(account_path, game)
+
+                        with open(game_path, "r") as file:
+                            curr = json.load(file)
+                            if "status" not in curr.keys() and curr['info']['endOfGameResult'] == 'GameComplete':
+                                result = self.game_result(curr, account)
+                                if not result:
+                                    wins['win'] += 1
+                                else:
+                                    wins['loss'] += 1
+
+                total["{0}/{1}".format(rank, division)] = wins  
+                print(rank_path, wins)
+                
+        json_file = json.dumps(total, indent=4)
+        with open("data/winrates.json", "w") as file:
+            file.write(json_file)

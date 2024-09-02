@@ -12,7 +12,7 @@ class LolData:
         self._riot_api = os.environ["RIOT_API"]
         self.ranks = ["DIAMOND", "EMERALD", "PLATINUM", "GOLD", "SILVER", "BRONZE", "IRON"]
         self.divisions = ["I", "II", "III", "IV"]
-        self.high_elo = ["masterleagues", "grandmasterleagues", "challengerleagues"]
+        self.high_elo = ["challengerleagues", "grandmasterleagues", "masterleagues"]
         self.winrates = {}
 
     def load_general_accounts(self):
@@ -337,3 +337,4 @@ class LolData:
             for account in os.listdir(match_path):
                 dic[account] = len(os.listdir(match_path + "/" + account))
             print(dict(sorted(dic.items(), key=lambda ky: ky[1])))
+            

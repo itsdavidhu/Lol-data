@@ -203,7 +203,25 @@ def opt_session():
     plt.title("Winrate of Session given Total Number of Games Played - General")
     plt.show()
 
+def average_win():
+    path = "data/winrates.json"
+    games = pd.read_json(path)
+    games = games.transpose()
+    total_high = [0, 0]
+    total = [0, 0]
+    
+    for index, row in games.iterrows():
+        if row.name in high_elo:
+            total_high[0] += row['win']
+            total_high[1] += row['loss']
+        total[0] += row['win']
+        total[1] += row['loss']
+    print(round(total_high[0] / (total_high[0] + total_high[1]), ndigits=3) * 100) 
+    print(round(total[0] / (total[0] + total[1]), ndigits=3) * 100)
+
+
 session()
 opt_session()
 streaks()
 breaks()
+average_win()
