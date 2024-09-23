@@ -38,15 +38,17 @@ Our analysis begins with determining the optimal session length. We had two meth
 - This conclusion is futher supported by the high elo graph of session win rates.
 - The highest session win rates in high elo tend to be shorter ones as skilled players are able to fully focus and hone in on their first game.
 
-    * Key Takeaway - play a normal game / go into practice tool to get accustomed. Then, play with the most intention and focus on either a short session or the first 1-3 games of a session to fully maximize lp gains
-
 ![alt text](https://github.com/itsdavidhu/Lol-data/blob/main/images/total_high.png?raw=true)
+
+Key Takeaway - play a normal game / go into practice tool to get accustomed. Then, play with the most intention and focus on either a short session or the first 1-3 games of a session to fully maximize lp gains
+
 
 ## Streaks
 
-In this section, we wanted to see when you should stop playing after a win or loss streak. We've all been there, having to decide when to stop the hot streak, or play until 
+In this section, we attempt to identify the impact of win and loss streaks. More specifically, when a player should stop playing after X streak length.
 
 ![alt text](https://github.com/itsdavidhu/Lol-data/blob/main/images/streaks.png?raw=true)
+
 
 ## Breaks
 In this analysis, we attempt to identify the impact of breaks on the following game. We do this by determining the win rates after wins vs losses. For the general playerbase, we have:
