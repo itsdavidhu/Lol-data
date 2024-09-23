@@ -29,12 +29,12 @@ Our analysis begins with determining the optimal session length. We had two meth
 ![alt text](https://github.com/itsdavidhu/Lol-data/blob/main/images/next_general.png?raw=true)
 ![alt text](https://github.com/itsdavidhu/Lol-data/blob/main/images/total_general.png?raw=true)
 
-- The first graph shows the average win rate of a game after X games played for all elos - this refelects a players indivdual performance in that specific game of a session
-- The graph tells us that players start their sessions relativetly poorly, and ramp up to their peak performance from their 8th-10th games and taper off afterwards.
+- The first graph shows the average win rate of a game after X games played for all elos - this reflects a players individual performance in that specific game of a session.
+- The graph tells us that players start their sessions relatively poorly, and ramp up to their peak performance from their 8th-10th games and taper off afterwards.
 - The increasing then decreasing win rates can be attributed to players spending a few games to 'warm up' or getting accustomed to playing ranked, thus perform the best from their 8th-10th games, but lose focus or get fatigued and perform accordingly after.
 - Interestingly, looking at the winrates for total session length, these tendancies are not reflected.
 - No pattern exists when comparing session length to associated win rates, meaning that any session length will generally result in the same lp gains.
-- This is important as the first graph shows player indvidual performance increasing throughout the session, but their overall win rate stays stagnant, as their relatively poor performance at the beginning of the session off sets their peak performance later, resulting in the same outcome.
+- This is important as the first graph shows player individual performance increasing throughout the session, but their overall win rate stays stagnant, as their relatively poor performance at the beginning of the session off sets their peak performance later, resulting in the same outcome.
 - This conclusion is futher supported by the high elo graph of session win rates.
 - The highest session win rates in high elo tend to be shorter ones as skilled players are able to fully focus and hone in on their first game.
 
@@ -68,13 +68,13 @@ Further research topics:
 
 ## Statistical Analysis
 
-- The statistical analysis is focused on high elo (master - challenger) as patters are more consistent
+- The statistical analysis is focused on high elo (master - challenger) as patterns are more consistent
 
-    * The model is made ASSUMING linearity between session lengths and the out come of a game
+    * The model is made ASSUMING linearity between session lengths and the outcome of a game
 
 Logistic Regression
 
-- Logistic regression is focused on modelling the relationship between games in a session (independent varialbe) and the binary outcome of the game, win / loss (dependent variable).
+- Logistic regression is focused on modeling the relationship between games in a session (independent variable) and the binary outcome of the game, win / loss (dependent variable).
 - The odds ratio from the data given by the model is 0.97193106, suggesting a negative relationship between win rate and session length
 - i.e. per session game increase in session length, the win rate is approximately 97.2% of the previous (2.8% drop) 
 - Its important to note, the average win rate itself is not dropping 2.8% per subsequent game, but the probability of winning drops 2.8% 
@@ -84,13 +84,12 @@ Logistic Regression
 
 Polynomial Regression
 
-- Polynomial regression is focused on modelling the relationship between games in a session (independent variable) and average win rate for the session length (dependent variable).
+- Polynomial regression is focused on modeling the relationship between games in a session (independent variable) and average win rate for the session length (dependent variable).
 - The data is split into a training and test set (70/30)
 - The model has degree 5, it was chosen as it optimizes the RMSE for the data
 - The R value is negative implying a negative relationship between session length and win rates
 - The R^2 value is 0.6860271713705075 - meaning that the proportion of the variance in session length win rate can be directly attributed to session length itself
-- The number is fairly high and is interesting to explore why the variance occurs, important factors like champion, player variance between games, player fatigue over longer sessios etc, all play a role
-    
+- The number is fairly high and is interesting to explore why the variance occurs, important factors like champion, player variance between games, player fatigue over longer sessions, etc, all play a role
     
 ![alt text](https://github.com/itsdavidhu/Lol-data/blob/main/images/polynomial_regression.png?raw=true)
 
