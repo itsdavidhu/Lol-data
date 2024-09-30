@@ -32,7 +32,7 @@ Our analysis begins with determining the optimal session length. We had two meth
 - The first graph shows the average win rate of a game after X games played for all elos - this reflects a players individual performance in that specific game of a session.
 - The graph tells us that players start their sessions relatively poorly, and ramp up to their peak performance from their 8th-10th games and taper off afterwards.
 - The increasing then decreasing win rates can be attributed to players spending a few games to 'warm up' or getting accustomed to playing ranked, thus perform the best from their 8th-10th games, but lose focus or get fatigued and perform accordingly after.
-- Interestingly, looking at the winrates for total session length, these tendancies are not reflected.
+- Interestingly, looking at the second graph for total session length win rate, these tendancies are not reflected.
 - No pattern exists when comparing session length to associated win rates, meaning that any session length will generally result in the same lp gains.
 - This is important as the first graph shows player individual performance increasing throughout the session, but their overall win rate stays stagnant, as their relatively poor performance at the beginning of the session off sets their peak performance later, resulting in the same outcome.
 - This conclusion is futher supported by the high elo graph of session win rates.
@@ -42,13 +42,20 @@ Our analysis begins with determining the optimal session length. We had two meth
 
 Key Takeaway - play a normal game / go into practice tool to get accustomed. Then, play with the most intention and focus on either a short session or the first 1-3 games of a session to fully maximize lp gains
 
-
 ## Streaks
 
-In this section, we attempt to identify the impact of win and loss streaks. More specifically, when a player should stop playing after X streak length.
+In this section, we attempt to identify the impact of win and loss streaks. More specifically, when a player should stop playing after X streak length. For our purposes, streaks are defined as 3+ wins/losses without a significant break of 30 minutes in between games. 
 
 ![alt text](https://github.com/itsdavidhu/Lol-data/blob/main/images/streaks.png?raw=true)
 
+- This graph shows the win rate of a game following a win/loss streak of X length.
+- The graph shows that, up until a win/loss streak of 7 games, there is no statistically significant difference.
+- However, for 8 games and onward, we can see a difference.
+- This supports the notion that a player's performance can be influenced by hot streaks and cold streaks.
+- We believe the win streak data is heavily skewed by smurfs and cannot be used to draw definitive conclusions.
+- Conversly, there are far fewer reverse smurfs and we ultimately believe the loss streak data does show that a players peformance decreases with longer losing streaks.
+
+Key Takeaway - stop playing or take a break if you are on a long losing streak
 
 ## Breaks
 In this analysis, we attempt to identify the impact of breaks on the following game. We do this by determining the win rates after wins vs losses. For the general playerbase, we have:
