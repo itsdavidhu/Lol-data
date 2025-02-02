@@ -1,5 +1,7 @@
 # League of Legends Data and Statistical Analysis
 
+Data can be found at: https://huggingface.co/datasets/itsdavidhu/LolData 
+
 *tl;dr*
 
 - Players perform best in their 8th to 10th game.
@@ -101,5 +103,3 @@ Polynomial Regression
 - The number is fairly high and is interesting to explore why the variance occurs, important factors like champion, player variance between games, player fatigue over longer sessions, etc, all play a role
     
 ![alt text](https://github.com/itsdavidhu/Lol-data/blob/main/images/polynomial_regression.png?raw=true)
-
-Data can be found at: https://huggingface.co/datasets/itsdavidhu/LolData 
